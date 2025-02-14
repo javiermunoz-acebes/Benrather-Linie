@@ -117,16 +117,5 @@ ggplot() +
 
 Este código genera un mapa que ilustra las características fonéticas específicas asociadas con la Línea Benrath.
 
-## Resultados
-
-El código produce dos mapas:
-
-1. Un mapa de Alemania mostrando la Línea Benrath y la distribución de los grupos dialectales.
-2. Un mapa de Alemania destacando las características fonéticas específicas asociadas con la Línea Benrath.
-
-## Contribuciones
-
-Las contribuciones a este proyecto son bienvenidas. Por favor, abre un issue para discutir los cambios propuestos antes de hacer un pull request.
-
-Citations:
+Citas:
 [1] https://raw.githubusercontent.com/javiermunoz-acebes/Benrat
