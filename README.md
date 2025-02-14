@@ -11,8 +11,6 @@ Este proyecto utiliza R para visualizar y analizar la Línea Benrath, una isoglo
 3. [Instalación](#instalación)
 4. [Uso](#uso)
 5. [Explicación del Código](#explicación-del-código)
-6. [Resultados](#resultados)
-7. [Contribuciones](#contribuciones)
 
 ## Descripción
 
@@ -114,8 +112,6 @@ ggplot() +
        color = "Característica fonética") +
   theme(legend.position = "bottom")
 ```
-
-Este código genera un mapa que ilustra las características fonéticas específicas asociadas con la Línea Benrath.
 
 Citas:
 [1] https://raw.githubusercontent.com/javiermunoz-acebes/Benrat
