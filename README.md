@@ -112,6 +112,3 @@ ggplot() +
        color = "Característica fonética") +
   theme(legend.position = "bottom")
 ```
-
-Citas:
-[1] https://raw.githubusercontent.com/javiermunoz-acebes/Benrat
