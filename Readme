@@ -1,0 +1,29 @@
+Topografía Probabilística de la Línea Benrath: Un Enfoque de Modelado Geoestadístico sobre los Wenkerbögen
+Este repositorio contiene el protocolo computacional completo para la adquisición, procesamiento y modelado espacial de la Línea Benrath (isoglosa maken/machen), basado en los datos históricos de los cuestionarios de Georg Wenker (siglo XIX).
+El proyecto trasciende la cartografía dialectal tradicional al proponer un enfoque de Modelado Aditivo Generalizado (GAM) que permite visualizar las fronteras lingüísticas no como líneas estáticas, sino como superficies de probabilidad continuas.
+Características del Proyecto
+Arqueología de Datos: Adquisición automatizada mediante snapshots íntegros del corpus digitalizado para garantizar la reproducibilidad sincrónica.
+Higiene Lingüística: Clasificación basada en validación de tokens y límites de palabra (word boundaries) para eliminar falsos positivos léxicos.
+Rigor Cartográfico: Proyección métrica de áreas iguales (ETRS89-LAEA / EPSG:3035) para eliminar distorsiones esferoidales en el análisis de distancias.
+Análisis Avanzado: * Comparativa de modelos GLM vs. GAM.
+Detección de enclaves y focos de resistencia mediante Indicadores Locales de Asociación Espacial (LISA).
+Cuantificación de la incertidumbre y asimetría de la transición lingüística.
+Requisitos y Dependencias
+El protocolo está desarrollado íntegramente en el lenguaje R. Se recomienda el uso de RStudio. El script utiliza el gestor pacman para asegurar que todas las librerías necesarias se instalen y carguen automáticamente:
+Tidyverse: dplyr, ggplot2, readr, stringr.
+Espacial: sf, rnaturalearth, tidygeocoder, spdep.
+Modelado: mgcv, gratia, broom.
+Instalación y Uso
+Clonar el repositorio: Bash     git clone https://github.com/tu-usuario/linea-benrath-wenker.git
+    
+Ejecutar el análisis: Abre el archivo .R principal en RStudio y ejecútalo. El script creará automáticamente la estructura de carpetas necesaria:
+/data/raw/: Almacena el snapshot comprimido y los CSV originales.
+/data/processed/: Contiene los datasets finales y la cartografía generada.
+Resultados Generados
+Al finalizar el protocolo, se exportarán los siguientes productos técnicos:
+Mapa de Isoglosa Probabilística: Visualización de la superficie de transición basada en la predicción GAM.
+Análisis de Clústeres LISA: Identificación de hotspots y coldspots de resistencia dialectal.
+Dashboard de Diagnóstico: Gráficos de densidad, curvas de transición (S-curves) y perfiles Norte-Sur.
+Dataset Proyectado: Archivo CSV con coordenadas métricas y clasificación lingüística validada.
+
+Contribuciones: Las sugerencias y mejoras son bienvenidas. Si utilizas este código en tu investigación, por favor cita este repositorio.
