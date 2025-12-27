@@ -49,7 +49,7 @@ str(datos_benrath)
 
 # Or load directly from GitHub
 url <- "https://raw.githubusercontent.com/javiermunoz-acebes/Benrather-Linie/main/linea_benrath_data.csv"
-datos <- read.csv(url, sep = ";", encoding = "UTF-8")
+datos_benrath <- read.csv(url, sep = ";", encoding = "UTF-8")
 ```
 
 ### Example: Loading the Data in Python
@@ -75,6 +75,7 @@ Here's a simple example to visualize the data using R and ggplot2:
 library(ggplot2)
 library(sf)
 library(rnaturalearth)
+library(rnaturalearthdata)  # Required for ne_countries()
 
 # Load data
 datos_benrath <- read.csv("linea_benrath_data.csv", sep = ";", encoding = "UTF-8")
