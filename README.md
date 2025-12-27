@@ -1,117 +1,130 @@
-# Benrather-Linie
+# Benrather Linie (Benrath Line)
 
-## Análisis de la Línea Benrath en R
+A linguistic dataset documenting the Benrath Line (*Benrather Linie*), one of the most important isoglosses in the German language that separates Low German (Niederdeutsch) from Central German (Mitteldeutsch) dialects.
 
-Este proyecto utiliza R para visualizar y analizar la Línea Benrath, una isoglosa lingüística que separa los dialectos del bajo alemán (Niederdeutsch) de los dialectos del alto alemán (Hochdeutsch) en Alemania.
+## Overview
 
-## Contenido
+The Benrath Line is a linguistic boundary running east-west across Germany, approximately along the line of Benrath (a district of Düsseldorf). It represents a major division in German dialects based on the Second Germanic consonant shift, particularly the pronunciation of words like "make" (*maken* in Low German vs. *machen* in Central German).
 
-1. [Descripción](#descripción)
-2. [Requisitos](#requisitos)
-3. [Instalación](#instalación)
-4. [Uso](#uso)
-5. [Explicación del Código](#explicación-del-código)
+This repository contains geographic and linguistic data for various German cities, documenting which side of the Benrath Line they fall on and their characteristic phonetic features.
 
-## Descripción
+## Data
 
-El código crea dos visualizaciones diferentes de la Línea Benrath:
+The main dataset is contained in `linea_benrath_data.csv`, a semicolon-separated CSV file with the following fields:
 
-1. Un mapa que muestra la distribución geográfica de los grupos dialectales.
-2. Un mapa que ilustra las características fonéticas específicas asociadas con la Línea Benrath.
+- **region**: City or region name
+- **longitude**: Geographic longitude
+- **latitude**: Geographic latitude  
+- **dialect_group**: Dialect classification (Niederdeutsch or Mitteldeutsch)
+- **phonetic_characteristic**: How the word "make" is pronounced (*maken* or *machen*)
+- **linguistic_feature**: Type of consonant (Consonante oclusiva or Consonante fricativa)
 
-## Requisitos
+### Data Format
 
-Para ejecutar este código, necesitarás R y las siguientes bibliotecas:
-
-- ggplot2
-- sf
-- rnaturalearth
-- rnaturalearthdata
-
-## Instalación
-
-Para instalar las bibliotecas necesarias, ejecuta los siguientes comandos en R:
-
-```r
-install.packages(c("ggplot2", "sf", "rnaturalearth", "rnaturalearthdata"))
+```csv
+region;longitude;latitude;dialect_group;phonetic_characteristic;linguistic_feature
+Düsseldorf;6.7735;51.2277;Niederdeutsch;maken;Consonante oclusiva
+Köln;6.9603;50.9375;Mitteldeutsch;machen;Consonante fricativa
 ```
 
-## Uso
+The dataset includes 39 German cities spanning both sides of the Benrath Line.
 
-1. Asegúrate de tener todos los requisitos instalados.
-2. Copia el código en un script de R.
-3. Ejecuta el script para generar los mapas.
+## Usage
 
-## Explicación del Código
+You can use this data for:
 
-### Carga de Bibliotecas y Datos
+- Linguistic analysis and visualization
+- Educational purposes
+- Mapping German dialect boundaries
+- Research on German dialectology
+
+### Example: Loading the Data in R
+
+```r
+# Load the data
+datos_benrath <- read.csv("linea_benrath_data.csv", sep = ";", encoding = "UTF-8")
+
+# View structure
+str(datos_benrath)
+
+# Or load directly from GitHub
+url <- "https://raw.githubusercontent.com/javiermunoz-acebes/Benrather-Linie/main/linea_benrath_data.csv"
+datos <- read.csv(url, sep = ";", encoding = "UTF-8")
+```
+
+### Example: Loading the Data in Python
+
+```python
+import pandas as pd
+
+# Load from local file
+df = pd.read_csv('linea_benrath_data.csv', sep=';', encoding='utf-8')
+
+# Or load directly from GitHub
+url = "https://raw.githubusercontent.com/javiermunoz-acebes/Benrather-Linie/main/linea_benrath_data.csv"
+df = pd.read_csv(url, sep=';', encoding='utf-8')
+
+print(df.head())
+```
+
+### Visualization Example
+
+Here's a simple example to visualize the data using R and ggplot2:
 
 ```r
 library(ggplot2)
 library(sf)
 library(rnaturalearth)
-library(rnaturalearthdata)
 
-url <- "https://raw.githubusercontent.com/javiermunoz-acebes/Benrather-Linie/main/linea_benrath_data.csv"
-datos <- read.csv(url)
-
+# Load data
 datos_benrath <- read.csv("linea_benrath_data.csv", sep = ";", encoding = "UTF-8")
-```
 
-Esta sección carga las bibliotecas necesarias y los datos de la Línea Benrath desde un archivo CSV.
-
-### Preparación de Datos
-
-```r
+# Get Germany map
 alemania <- ne_countries(scale = "medium", returnclass = "sf", country = "germany")
 
-puntos_frontera <- data.frame(
-  region = c("Düsseldorf", "Benrath", "Wuppertal", "Bochum", "Dortmund", "Paderborn", "Hannover", "Magdeburg", "Berlin", "Cottbus"), 
-  longitude = c(6.7735, 6.8755, 7.1800, 7.2161, 7.4652, 8.7521, 9.7320, 11.6276, 13.4050, 14.3349),
-  latitude = c(51.2277, 51.1616, 51.2562, 51.4818, 51.5136, 51.718, 52.3759, 52.1205, 52.5200, 51.7607),
-  dialect_group = rep("Niederdeutsch", 10)
-)
-```
-
-Aquí se obtiene el mapa base de Alemania y se crea un dataframe con los puntos de la frontera dialectal.
-
-### Creación de Gráficos
-
-#### Mapa de Grupos Dialectales
-
-```r
-ggplot() +
-  geom_sf(data = alemania) +
-  geom_point(data = datos_benrath, aes(x = longitude, y = latitude, color = dialect_group), size = 3) +
-  geom_text(data = datos_benrath, aes(x = longitude, y = latitude, label = region),
-            vjust = -1, size = 3) +
-  geom_path(data = puntos_frontera, 
-            aes(x = longitude, y = latitude), 
-            color = "blue", linetype = "solid", size = 1) +
-  theme_minimal() +
-  labs(title = "Línea Benrath", color = "Grupo Dialectal") +
-  theme(legend.position = "bottom")
-```
-
-Este código crea un mapa que muestra la distribución de los grupos dialectales a lo largo de la Línea Benrath.
-
-#### Mapa de Características Fonéticas
-
-```r
+# Create map
 ggplot() +
   geom_sf(data = alemania) +
   geom_point(data = datos_benrath, 
-             aes(x = longitude, y = latitude, color = phonetic_characteristic),
+             aes(x = longitude, y = latitude, color = dialect_group), 
              size = 3) +
-  geom_text(data = datos_benrath,
+  geom_text(data = datos_benrath, 
             aes(x = longitude, y = latitude, label = region),
-            vjust = -1, size = 3) +
-  scale_color_manual(values = c("maken" = "blue", "machen" = "green", "mache" = "green")) +
+            vjust = -1, size = 2.5) +
   theme_minimal() +
-  labs(title = "Características fonéticas en la Línea Benrath",
-       color = "Característica fonética") +
-  theme(legend.position = "bottom")
+  labs(title = "Benrather Linie - Dialect Distribution",
+       subtitle = "Low German (Niederdeutsch) vs Central German (Mitteldeutsch)",
+       color = "Dialect Group",
+       x = "Longitude",
+       y = "Latitude")
 ```
 
-Citas:
-[1] https://raw.githubusercontent.com/javiermunoz-acebes/Benrat
+## About the Benrath Line
+
+The Benrath Line (German: *Benrather Linie*) is named after Benrath, a district in the southern part of Düsseldorf. It marks the northern boundary of the High German consonant shift (*Zweite Lautverschiebung*), which is one of the defining features of High German dialects.
+
+Key linguistic features:
+- **North of the line (Low German)**: "maken" (make), "Dorp" (village), "ik" (I)
+- **South of the line (Central German)**: "machen" (make), "Dorf" (village), "ich" (I)
+
+The line runs approximately through: Düsseldorf-Benrath, Kassel, Magdeburg, and Frankfurt an der Oder.
+
+## License
+
+This project is licensed under the terms specified in the LICENSE file.
+
+## Contributing
+
+Contributions to improve or expand the dataset are welcome. Please ensure data accuracy when adding new locations.
+
+---
+
+## Español
+
+### Descripción
+
+Este repositorio contiene datos geográficos y lingüísticos que documentan la Línea Benrath (*Benrather Linie*), una de las isoglosas más importantes del idioma alemán que separa los dialectos del bajo alemán (Niederdeutsch) de los dialectos del alemán central (Mitteldeutsch).
+
+### Datos
+
+El archivo `linea_benrath_data.csv` contiene información de 39 ciudades alemanas, documentando su ubicación geográfica, clasificación dialectal y características fonéticas específicas relacionadas con la Segunda mutación consonántica germánica.
