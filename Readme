@@ -1,4 +1,4 @@
-Topografía Probabilística de la Línea Benrath: Un Enfoque de Modelado Geoestadístico sobre los Wenkerbögen
+# Topografía Probabilística de la Línea Benrath: Un Enfoque de Modelado Geoestadístico sobre los Wenkerbögen
 Este repositorio contiene el protocolo computacional completo para la adquisición, procesamiento y modelado espacial de la Línea Benrath (isoglosa maken/machen), basado en los datos históricos de los cuestionarios de Georg Wenker (siglo XIX).
 El proyecto trasciende la cartografía dialectal tradicional al proponer un enfoque de Modelado Aditivo Generalizado (GAM) que permite visualizar las fronteras lingüísticas no como líneas estáticas, sino como superficies de probabilidad continuas.
 Características del Proyecto
