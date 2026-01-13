@@ -17,8 +17,6 @@ Espacial: sf, rnaturalearth, tidygeocoder, spdep.
 Modelado: mgcv, gratia, broom.
 
 ## Instalación y Uso
-Clonar el repositorio:Bashgit clone https://github.com/tu-usuario/linea-benrath-wenker.git
-
 Ejecutar el análisis:Abre el archivo .R principal en RStudio y ejecútalo. El script creará automáticamente la estructura de carpetas necesaria:
 /data/raw/: Almacena el snapshot comprimido y los CSV originales.
 /data/processed/: Contiene los datasets finales y la cartografía generada.
