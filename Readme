@@ -29,3 +29,6 @@ Dashboard de Diagnóstico: Gráficos de densidad, curvas de transición (S-curve
 Dataset Proyectado: Archivo CSV con coordenadas métricas y clasificación lingüística validada.
 
 ### Contribuciones: Las sugerencias y mejoras son bienvenidas. Si utilizas este código en tu investigación, por favor cita este repositorio.
+
+### La versión v7 de benrath_data incorpora un regex más depurado para captar más variables maken/machen así cómo nuevas graficaciones
+### El archivo 02_geocodificacion_modelos_espaciales_wenker incorpora un análisis GAM de todo el imperio alemán en la época en la que fueron recogidos los cuestionarios.
