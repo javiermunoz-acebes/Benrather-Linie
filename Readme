@@ -1,34 +1,52 @@
 # Topografía Probabilística de la Línea Benrath: Un Enfoque de Modelado Geoestadístico sobre los Wenkerbögen
-Este repositorio contiene el protocolo computacional completo para la adquisición, procesamiento y modelado espacial de la Línea Benrath (isoglosa maken/machen), basado en los datos históricos de los cuestionarios de Georg Wenker (siglo XIX).
-El proyecto trasciende la cartografía dialectal tradicional al proponer un enfoque de Modelado Aditivo Generalizado (GAM) que permite visualizar las fronteras lingüísticas no como líneas estáticas, sino como superficies de probabilidad continuas.
 
-## Características del Proyecto
-1. Arqueología de Datos: Adquisición automatizada mediante snapshots íntegros del corpus digitalizado para garantizar la reproducibilidad sincrónica.
-2. Higiene Lingüística: Clasificación basada en validación de tokens y límites de palabra (word boundaries) para eliminar falsos positivos léxicos.
-3. Rigor Cartográfico: Proyección métrica de áreas iguales (ETRS89-LAEA / EPSG:3035) para eliminar distorsiones esferoidales en el análisis de distancias.
-4. Análisis Avanzado: * Comparativa de modelos GLM vs. GAM.
-5. Detección de enclaves y focos de resistencia mediante Indicadores Locales de Asociación Espacial (LISA).
-6. Cuantificación de la incertidumbre y asimetría de la transición lingüística.
+Este repositorio contiene el protocolo computacional completo para la adquisición, procesamiento y modelado espacial de la Línea Benrath (isoglosa maken/machen), basado en los cuestionarios históricos de Georg Wenker (siglo XIX).
 
-## Requisitos y Dependencias
-El protocolo está desarrollado íntegramente en el lenguaje R. Se recomienda el uso de RStudio. El script utiliza el gestor pacman para asegurar que todas las librerías necesarias se instalen y carguen automáticamente:
-Tidyverse: dplyr, ggplot2, readr, stringr.
-Espacial: sf, rnaturalearth, tidygeocoder, spdep.
-Modelado: mgcv, gratia, broom.
+El proyecto trasciende la cartografía dialectal tradicional al proponer un enfoque de Modelado Aditivo Generalizado (GAM) que permite visualizar las fronteras lingüísticas no como líneas estáticas, sino como superficies de probabilidad continuas, contrastadas en dos dominios territoriales complementarios: la Alemania actual y el antiguo Imperio alemán.
 
-## Instalación y Uso
-Ejecutar el análisis:Abre el archivo .R principal en RStudio y ejecútalo. El script creará automáticamente la estructura de carpetas necesaria:
-/data/raw/: Almacena el snapshot comprimido y los CSV originales.
-/data/processed/: Contiene los datasets finales y la cartografía generada.
+## Características del proyecto
 
-## Resultados Generados
-Al finalizar el protocolo, se exportarán los siguientes productos técnicos:
-Mapa de Isoglosa Probabilística: Visualización de la superficie de transición basada en la predicción GAM.
-Análisis de Clústeres LISA: Identificación de hotspots y coldspots de resistencia dialectal.
-Dashboard de Diagnóstico: Gráficos de densidad, curvas de transición (S-curves) y perfiles Norte-Sur.
-Dataset Proyectado: Archivo CSV con coordenadas métricas y clasificación lingüística validada.
+1. **Arqueología de datos**: adquisición automatizada mediante una instantánea íntegra del corpus digitalizado, para garantizar la reproducibilidad frente a un estado concreto del repositorio.
+2. **Higiene lingüística**: clasificación de la variante dialectal basada en validación de tokens y límites de palabra, con normalización Unicode (NFKD) y filtrado explícito por idioma declarado.
+3. **Transparencia sobre los datos no clasificados**: informe de diagnóstico que categoriza cada cuestionario excluido (sustitución léxica, frase no traducida, variante no canónica, etc.), en vez de descartarlos en silencio.
+4. **Rigor cartográfico**: proyección métrica de áreas iguales (ETRS89-LAEA / EPSG:3035) para eliminar distorsiones esferoidales, y dos dominios territoriales delimitados por fronteras reales (no bounding boxes): Alemania actual y el Imperio alemán hacia 1900 (vía el paquete `cshapes`).
+5. **Análisis comparativo**: modelos GLM vs. GAM (k = 60, 100, 200, 300) sobre ambos dominios, con AIC, devianza explicada, precisión de clasificación y R² ajustado.
+6. **Detección de enclaves y focos de resistencia dialectal** mediante análisis de residuos e Indicadores Locales de Asociación Espacial (LISA).
+7. **Cuantificación de la incertidumbre y la asimetría** de la transición lingüística (gradiente espacial, error estándar predictivo, transectos longitudinales).
+8. **Análisis suplementario a escala continental**, sin restricción territorial, como comprobación de robustez adicional.
 
-### Contribuciones: Las sugerencias y mejoras son bienvenidas. Si utilizas este código en tu investigación, por favor cita este repositorio.
+## Requisitos y dependencias
 
-### La versión v7 de benrath_data incorpora un regex más depurado para captar más variables maken/machen así cómo nuevas graficaciones
-### El archivo 02_geocodificacion_modelos_espaciales_wenker incorpora un análisis GAM de todo el imperio alemán en la época en la que fueron recogidos los cuestionarios.
+El protocolo está desarrollado íntegramente en R. Se recomienda el uso de RStudio. El script utiliza el gestor `pacman` para instalar y cargar automáticamente las librerías necesarias:
+
+- **Tidyverse**: `dplyr`, `ggplot2`, `readr`, `stringr`, `purrr`
+- **Rutas y archivos**: `fs`, `here`
+- **Espacial**: `sf`, `rnaturalearth`, `cshapes`, `tidygeocoder`, `spdep`
+- **Modelado**: `mgcv`, `gratia`
+- **Texto y normalización**: `stringi`
+- **Visualización**: `metR`, `patchwork`, `scales`
+
+## Instalación y uso
+
+Abre el archivo `.R` principal en RStudio y ejecútalo. El script crea automáticamente la estructura de carpetas necesaria:
+
+- `datos_wenker/raw_wenker/`: almacena la instantánea comprimida del corpus y los CSV originales.
+- `datos_wenker/processed/`: contiene los datasets finales, los informes de diagnóstico y toda la cartografía generada.
+
+La geocodificación (vía ArcGIS) es el paso más lento del proceso; el resto del script puede volver a ejecutarse sin repetirla mientras no cambien los datos de partida.
+
+## Resultados generados
+
+Entre los productos que exporta el protocolo:
+
+- `wenker_clean_linguistic.csv` / `informe_NA_diagnostico.csv`: clasificación lingüística validada y diagnóstico de los casos excluidos.
+- `wenker_final_actual.csv` / `wenker_final_imperio.csv`: cuestionarios geocodificados y proyectados en cada dominio territorial.
+- `tabla_comparativa_dominios.csv`: comparación GLM vs. GAM (k = 60, 100, 200, 300) en ambos dominios.
+- Mapas de isoglosa probabilística, gradiente espacial e incertidumbre predictiva.
+- Mapa de clústeres LISA y mapa de residuos con enclaves lingüísticos detectados (`enclaves_detectados.csv`).
+- Transectos longitudinales comparando la anchura de la transición dialectal en distintos meridianos.
+- Cartografía suplementaria a escala continental, sin restricción territorial.
+
+## Contribuciones
+
+Las sugerencias y mejoras son bienvenidas. Si utilizas este código en tu investigación, por favor cita este repositorio.
